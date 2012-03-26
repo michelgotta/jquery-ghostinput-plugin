@@ -1,5 +1,5 @@
 /*
-	jQuery ghostInput Plugin 
+	jQuery ghostInput Plugin
 	
 	Author:
 	Michel Gotta / michel@michelgotta.de
@@ -8,6 +8,8 @@
 	https://github.com/michelgotta/jquery-ghostinput-plugin
 	
 */
+jQuery.noConflict()(function($){
+
 $.fn.ghostInput = function(options, change) {
   options = $.extend({
     ghostText: ".foo.bar",
@@ -19,9 +21,9 @@ $.fn.ghostInput = function(options, change) {
       wrapper = $('<span/>').addClass('ghostInput_wrapper').attr('id', 'ghostInput_wrapper_'+element.attr('id'));
       element.wrap(wrapper);
       $('#'+wrapper.attr('id')).css({
-              'width': element.width()+'px', 
-              'height': element.height()+'px', 
-              'display': 'inline-block', 
+              'width': element.width()+'px',
+              'height': element.height()+'px',
+              'display': 'inline-block',
               'overflow': 'hidden'});
               
       element.css('margin', '0');
@@ -29,7 +31,7 @@ $.fn.ghostInput = function(options, change) {
       
       if (options.ghostLabel!==undefined ) {
         element.before( $('<label/>').attr({'for': element.attr('name'), 'class': 'ghostInput_label'}).html(options.ghostLabel) );
-      };
+      }
     },
     textchange : function() {
       if ($(this).val() !== wrapper.find('.ghostInput_copy').html()) {
@@ -43,13 +45,15 @@ $.fn.ghostInput = function(options, change) {
           wrapper.find('.ghostInput_input').fadeOut(100, function() {
             $(this).html('');
           });
-        };
+        }
         if (options.change!==undefined) {
           options.change();
-        };
-      };
+        }
+      }
     }
   };
   ghost.init($(this));
   $(this).bind('keyup', ghost.textchange);
 };
+
+});
